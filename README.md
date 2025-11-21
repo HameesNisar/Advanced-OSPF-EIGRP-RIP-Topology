@@ -77,22 +77,6 @@ Filtering was implemented using:
 
 ---
 
-## 🗂 Routing Domains Overview
-
-| Protocol | Routers |
-|---------|---------|
-| **RIP** | R23, R25, R26 |
-| **EIGRP AS 140** | R6, SW3 |
-| **EIGRP AS 160** | R10, R11, R12 |
-| **EIGRP AS 167** | R24 |
-| **EIGRP AS 173** | R18, R19 |
-| **EIGRP AS 174** | R13, R14, SW6 |
-| **EIGRP AS 190** | R5, R7, R8 |
-| **EIGRP AS 199** | R19, R21, R22 |
-| **OSPF Areas 0 / 134 / 145 / 155 / 165** | Core routers |
-
----
-
 ## 🔄 Redistribution Strategy
 
 Each redistribution point used:
