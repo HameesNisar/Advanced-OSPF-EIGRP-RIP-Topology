@@ -1,0 +1,200 @@
+ASN-190 (R5) & AREA 165
+-------------------------------------------------
+conf t
+access-list 1 deny 192.168.29.0 0.0.0.255
+access-list 1 deny 192.168.19.0 0.0.0.255
+access-list 1 deny 192.168.2.0 0.0.0.255 
+access-list 1 permit any
+
+access-list 2 deny 192.168.31.0 0.0.0.255 !OSPF block
+access-list 2 permit any
+
+route-map router5
+match ip address 1
+
+route-map router5b
+match ip address 2
+
+router eigrp 190
+redistribute ospf 1 metric 100000 1000 1 1 1 route-map router5
+router ospf 1
+redistribute eigrp 190 route-map router5b
+
+end
+wr
+---------------------------------------------------
+ASN-140 (R6)  & AREA 165
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.6.0 0.0.0.255  !eigrp block
+access-list 1 permit any
+
+access-list 2 deny 192.168.26.0 0.0.0.255 !OSPF block
+access-list 2 permit any
+
+route-map router6
+match ip address 1
+
+route-map router6b
+match ip address 2
+
+router eigrp 140
+redistribute ospf 1 metric 100000 1000 1 1 1 route-map router6
+router ospf 1
+redistribute eigrp 140 route-map router6b
+
+end
+wr
+
+---------------------------------------------------
+ASN-160 (R10)
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.17.0 0.0.0.255
+access-list 1 permit any
+
+route-map router10
+match ip address 1
+
+router eigrp 160
+redistribute eigrp 140 route-map router10
+router eigrp 140
+redistribute eigrp 160
+
+end
+wr
+---------------------------------------------------
+ASN-174 (R13)
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.34.0 0.0.0.255
+access-list 1 deny 192.168.16.0 0.0.0.255
+access-list 1 deny 192.168.4.0 0.0.0.255
+access-list 1 permit any
+
+access-list 2 deny 192.168.18.0 0.0.0.255 !OSPF block
+access-list 2 deny 192.168.21.0 0.0.0.255 !OSPF block
+access-list 2 deny 192.168.22.0 0.0.0.255 !OSPF block 
+access-list 2 permit any
+
+route-map router13
+match ip address 1
+
+route-map router13b
+match ip address 2
+
+router eigrp 174
+redistribute ospf 1 metric 100000 1000 1 1 1 route-map router13
+router ospf 1
+redistribute eigrp 174 route-map router13b
+
+end
+wr
+
+---------------------------------------------------
+ASN-199 (R19)
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.33.0 0.0.0.255
+access-list 1 deny 192.168.28.0 0.0.0.255
+access-list 1 deny 192.168.14.0 0.0.0.255
+access-list 1 deny 192.168.5.0 0.0.0.255
+access-list 1 permit any
+
+
+route-map router19
+match ip address 1
+
+router eigrp 199
+redistribute eigrp 173 route-map router19
+router eigrp 173
+redistribute eigrp 199 
+
+end
+wr
+
+---------------------------------------------------
+ASN-173 (R18)
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.9.0 0.0.0.255
+access-list 1 deny 192.168.27.0 0.0.0.255
+access-list 1 permit any
+
+access-list 2 deny 192.168.12.0 0.0.0.255 !OSPF block 
+access-list 2 deny 192.168.13.0 0.0.0.255 !OSPF block 
+access-list 2 permit any
+
+route-map router18
+match ip address 1
+
+route-map router18b
+match ip address 2
+
+router eigrp 173
+redistribute ospf 1 metric 100000 1000 1 1 1 route-map router18
+router ospf 1
+redistribute eigrp 173 route-map router18b
+
+end
+wr
+
+---------------------------------------------------
+ASN-167 (R24)
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.2.0 0.0.0.255
+access-list 1 deny 192.168.14.0 0.0.0.255
+access-list 1 deny 192.168.15.0 0.0.0.255
+access-list 1 deny 192.168.24.0 0.0.0.255
+access-list 1 deny 192.168.30.0 0.0.0.255
+access-list 1 permit any
+
+access-list 2 deny 192.168.7.0 0.0.0.255 !OSPF block 
+access-list 2 deny 192.168.8.0 0.0.0.255 !OSPF block 
+access-list 2 permit any
+
+route-map router24
+match ip address 1
+
+route-map router24b
+match ip address 2
+
+router eigrp 167
+redistribute ospf 1 metric 100000 1000 1 1 1 route-map router24
+router ospf 1
+redistribute eigrp 167 route-map router24b
+
+end
+wr
+
+---------------------------------------------------
+RIP (R23)
+---------------------------------------------------
+conf t
+access-list 1 deny 192.168.13.0 0.0.0.255
+access-list 1 deny 192.168.20.0 0.0.0.255
+access-list 1 deny 192.168.23.0 0.0.0.255
+access-list 1 deny 192.168.25.0 0.0.0.255
+access-list 1 deny 192.168.32.0 0.0.0.255
+access-list 1 deny 192.168.12.0 0.0.0.255
+access-list 1 deny 192.168.10.0 0.0.0.255
+access-list 1 deny 192.168.6.0 0.0.0.255
+access-list 1 permit any
+
+access-list 2 deny 192.168.1.0 0.0.0.255 !OSPF block 
+access-list 2 permit any
+
+route-map router23
+match ip address 1
+
+route-map router23b
+match ip address 2
+
+router rip
+redistribute ospf 1 metric 1 route-map router23
+router ospf 1
+redistribute rip route-map router23b
+
+end
+wr
